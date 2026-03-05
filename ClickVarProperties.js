@@ -1,0 +1,1 @@
+increase var Clicks by 1 on button click
