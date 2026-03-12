@@ -3,251 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>clicker game website</title>
+    <title>Planes!!!</title>
     <link rel="stylesheet" href="style.css"/>
-    <script src="ClickVarProperties.js"></script>
 </head>
 <body>
     
 <!DOCTYPE html>
 <html>
 <head>
-<title>untitled clicker game
+<title>website i made about cool planes!!!!!!!11!!!!
 </title>
 </head>
 <body>
-<h1>Clicker Game</h1>
-<div id="score">Score: 0</div>
-<button onclick="clickGame()">CLICK</button>
-<br><br>
-<button class="upgrade" onclick="buyUpgrade()">
-Upgrade (+1 per click) Cost: 10
-</button>
-<script>
-let score = 0
-let clickMultiplier = 1
-let upgradeCost = 10
-function clickGame(){
-    score += clickMultiplier
-    updateDisplay()
-}
-function buyUpgrade(){
-    if(score >= upgradeCost){
-        score -= upgradeCost
-        clickMultiplier += 1
-        upgradeCost = Math.floor(upgradeCost * 1.5)
-        document.querySelector(".upgrade").innerText =
-        "Upgrade (+" + clickMultiplier + " per click) Cost: " + upgradeCost
-        updateDisplay()
-    }
-}
-function updateDisplay(){
-    document.getElementById("score").innerText = "Score: " + score
-}
-</script>
-</body>
-</html>
+<h1>planes</h1>
 
-<!DOCTYPE html>
-<html>
-<head>
-<title>67 Background</title>
-</head>
-<body>
-<div class="grid">
-    <div class="section s1"></div>
-    <div class="section s2"></div>
-    <div class="section s3"></div>
-    <div class="section s4"></div>
-    <div class="section s5"></div>
-    <div class="section s6"></div>
-    <div class="section s7"></div>
-    <div class="section s8"></div>
-    <div class="section s9"></div>
-</div> <!-- 67!!!-->
-</body>
-</html>
+<p> planes are cool because theres lots of types of planes, here are my favourites!!!</p>
 
-<!DOCTYPE html>
-<html>
-<head>
-<title>Background Crates</title>
+<h4> i love gambling i love gambling i love gambling i love gambling i love gambling i love gambling i love gambling i love gambling i love gambling i love gambling i love gambling i love gambling i love gambling i love gambling   i love gambling i love gambling i love gambling i love gambling i love gambling i love gambling i love gambling i love gambling i love gambling i love gambling i love gambling i love gambling i love gambling i love gambling i love gambling i love gambling i love gambling i love gambling i love gambling i love gambling   i love gambling i love gambling i love gambling i love gambling i love gambling i love gambling i love gambling i love gambling i love gambling i love gambling i love gambling i love gambling i love gambling i love gambling i love </h4>
+    
 
-<style>
-body{
-margin:0;
-font-family:Arial;
-color:white;
-text-align:center;
-}
+<a href="boeing767.html" > <h3> Number 10 - Boeing 767</h3> </a>
 
-.grid{
-position:fixed;
-top:0;
-left:0;
-width:100vw;
-height:100vh;
-display:grid;
-grid-template-columns:1fr 1fr 1fr;
-grid-template-rows:1fr 1fr 1fr;
-z-index:-1;
-}
+    <img src="boeing 767 image one.jpg" alt="boening 767" width="740" height="450"> 
 
-.tile{
-width:100%;
-height:100%;
-}
 
-.menu{
-position:fixed;
-right:20px;
-top:20px;
-background:#222;
-padding:15px;
-border-radius:10px;
-max-height:80vh;
-overflow-y:auto;
-}
 
-button{
-padding:10px 15px;
-margin:5px;
-font-size:16px;
-cursor:pointer;
-}
-
-</style>
-</head>
-
-<body>
-
-<h1>Background Crates</h1>
-<button onclick="buyCrate()">Buy Background Crate (10,000)</button>
-
-<div class="grid" id="grid"></div>
-
-<div class="menu">
-<h3>Your Backgrounds</h3>
-<div id="inventory"></div>
-</div>
-
-<script>
-
-let backgrounds = []
-let activeBackground = null
-
-// create tiles
-const grid = document.getElementById("grid")
-for(let i=0;i<9;i++){
-let tile=document.createElement("div")
-tile.className="tile"
-grid.appendChild(tile)
-}
-
-function randomHex(){
-return "#" + Math.floor(Math.random()*16777215).toString(16).padStart(6,"0")
-}
-
-function colorValue(hex){
-return parseInt(hex.replace("#",""),16)
-}
-
-// simple "color harmony" scoring
-function backgroundValue(colors){
-
-let score=0
-
-for(let i=0;i<colors.length-1;i++){
-let diff=Math.abs(colorValue(colors[i]) - colorValue(colors[i+1]))
-score += (16777215-diff)/16777215
-}
-
-score = score / colors.length
-
-return Math.floor(score*5000 + 500)
-}
-
-function buyCrate(){
-
-if(score < 10000){
-alert("Not enough clicks")
-return
-}
-
-score -= 10000
-
-let colors=[]
-
-for(let i=0;i<9;i++){
-colors.push(randomHex())
-}
-
-let value = backgroundValue(colors)
-
-backgrounds.push({
-colors:colors,
-value:value
-})
-
-updateClicks()
-updateInventory()
-}
-
-function applyBackground(colors){
-
-let tiles=document.querySelectorAll(".tile")
-
-for(let i=0;i<9;i++){
-tiles[i].style.background=colors[i]
-}
-
-}
-
-function sellBackground(index){
-
-score += backgrounds[index].value
-
-backgrounds.splice(index,1)
-
-updateClicks()
-updateInventory()
-}
-
-function setBackground(index){
-
-activeBackground=index
-applyBackground(backgrounds[index].colors)
-
-}
-
-function updateClicks(){
-document.getElementById("score").innerText=score
-}
-
-function updateInventory(){
-
-let inv=document.getElementById("inventory")
-inv.innerHTML=""
-
-backgrounds.forEach((bg,i)=>{
-
-let div=document.createElement("div")
-
-div.innerHTML = `
-Value: ${bg.value}
-<br>
-<button onclick="setBackground(${i})">Use</button>
-<button onclick="sellBackground(${i})">Sell</button>
-<hr>
-`
-
-inv.appendChild(div)
-
-})
-
-}
-
-</script>
-
-</body>
-</html> 
+    <a href="p-40kittyhawk.html" > <h3> Number 9 - P-40 Kittyhawk</h3> </a>
+     <img src="p-40kittyhawk.jpg" alt="P-40 Kittyhawk" width="740" height="450">
